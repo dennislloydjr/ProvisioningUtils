@@ -2,12 +2,12 @@ Import-Module .\ProvisioningFunctions.psm1
 
 Initialize-ProvisioningPath
 Install-Scoop
+scoop install 7Zip
+Install-Git
 scoop bucket add extras
 scoop bucket add devbox https://github.com/dennislloydjr/scoop-bucket-devbox
 scoop update
 
-scoop install 7Zip
-Install-Git
 scoop install wget
 
 scoop install java8

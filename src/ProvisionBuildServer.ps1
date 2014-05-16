@@ -28,12 +28,13 @@ function Install-Stash {
 
 Initialize-ProvisioningPath
 Install-Scoop
+scoop install 7Zip --global
+scoop install git --global
+
 scoop bucket add extras
 scoop bucket add devbox https://github.com/dennislloydjr/scoop-bucket-devbox
 scoop update
 
-scoop install 7Zip --global
-scoop install git --global
 scoop install wget --global
 scoop install perl --global
 scoop install java7 --global
