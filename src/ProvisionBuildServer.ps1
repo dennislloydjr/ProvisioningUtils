@@ -6,18 +6,19 @@ Import-Module .\DecryptPropertiesUtil.psm1
 function Install-Mysql {
 	scoop install mysql
 	$MySqlHome = $env:MYSQL_HOME
-	$MySqlData = Join-Path (Get-DataPath) "mysql"
+	$MySqlData = (Join-Path (Get-DataPath) "mysql") -replace "\\", "/"
 	New-Path $MySqlData > $null
-	$MySqlIniFile = Join-Path $MySqlData "my.ini"
+	$MySqlIniFile = (Join-Path $MySqlData "my.ini") -replace "\\", "/"
 	@"
 [mysqld]
 basedir=$MySqlHome
-datadir=$MySqlData
+datadir=$MySqlData/data
 port=3306
 default-storage-engine=InnoDB
 "@ | Out-File -FilePath $MySqlIniFile -Force
 
-	mysqld --install MySQL --defaults-file="$MySqlIniFile"
+	Move-Item "$MySqlHome/data" "$MySqlData"
+	mysqld --install MySQL --defaults-file=$MySqlIniFile
 	net start MySQL
 }
 
