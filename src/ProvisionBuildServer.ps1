@@ -5,6 +5,7 @@ function Install-Mysql {
 	scoop install mysql --global
 	$MySqlHome = $env:MYSQL_HOME
 	$MySqlData = Join-Path (Get-DataPath) "mysql"
+	New-Path $MySqlData > $null
 	$MySqlIniFile = Join-Path $MySqlData "my.ini"
 	@"
 [mysqld]
