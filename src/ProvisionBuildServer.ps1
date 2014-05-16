@@ -1,6 +1,8 @@
 Import-Module .\ProvisioningFunctions.psm1
 Import-Module .\DecryptPropertiesUtil.psm1
 
+. .\SetEnvironmentVariables.ps1
+
 function Install-Mysql {
 	scoop install mysql --global
 	$MySqlHome = $env:MYSQL_HOME
