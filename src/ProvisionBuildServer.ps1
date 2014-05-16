@@ -31,8 +31,7 @@ function Install-Stash {
 
 Initialize-ProvisioningPath
 Install-Scoop
-scoop install 7Zip
-scoop install git
+Install-Git
 
 scoop bucket add extras
 scoop bucket add devbox https://github.com/dennislloydjr/scoop-bucket-devbox
