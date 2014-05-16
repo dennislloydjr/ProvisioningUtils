@@ -18,4 +18,4 @@ if %errorlevel% neq 0 (
 	exit /b 1
 )
 
-powershell -noprofile .\DevBoxProvisioning.ps1
+powershell -noprofile .\ProvisioningDevBox.ps1
