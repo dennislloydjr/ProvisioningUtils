@@ -4,7 +4,7 @@ Import-Module .\DecryptPropertiesUtil.psm1
 . .\SetEnvironmentVariables.ps1
 
 function Install-Mysql {
-	scoop install mysql --global
+	scoop install mysql
 	$MySqlHome = $env:MYSQL_HOME
 	$MySqlData = Join-Path (Get-DataPath) "mysql"
 	New-Path $MySqlData > $null
@@ -22,7 +22,7 @@ default-storage-engine=InnoDB
 }
 
 function Install-Stash {
-	scoop install atlassian-stash --global
+	scoop install atlassian-stash
 	$StashHomePath = Join-Path (Get-DataPath) "Stash"
 	New-Path $StashHomePath > $null
 	[System.Environment]::SetEnvironmentVariable("STASH_HOME", $StashHomePath, "User")
@@ -31,15 +31,15 @@ function Install-Stash {
 
 Initialize-ProvisioningPath
 Install-Scoop
-scoop install 7Zip --global
-scoop install git --global
+scoop install 7Zip
+scoop install git
 
 scoop bucket add extras
 scoop bucket add devbox https://github.com/dennislloydjr/scoop-bucket-devbox
 scoop update
 
-scoop install wget --global
-scoop install perl --global
-scoop install java7 --global
+scoop install wget
+scoop install perl
+scoop install java7
 
 Install-Mysql
