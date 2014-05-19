@@ -15,7 +15,7 @@ basedir=$MySqlHome
 datadir=$MySqlData/data
 port=3306
 default-storage-engine=InnoDB
-"@ | Out-File -FilePath $MySqlIniFile -Force
+"@ | Out-File -FilePath $MySqlIniFile -Encoding 'ASCII' -Force
 
 	Move-Item "$MySqlHome/data" "$MySqlData"
 	mysqld --install MySQL --defaults-file=$MySqlIniFile
