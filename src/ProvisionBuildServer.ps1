@@ -3,7 +3,7 @@ Import-Module .\DecryptPropertiesUtil.psm1
 
 . .\SetEnvironmentVariables.ps1
 
-function Install-Mysql {
+function Install-Mysql([SecureString] $EncryptionKey) {
 	scoop install mysql
 	$MySqlHome = $env:MYSQL_HOME
 	$MySqlData = (Join-Path (Get-DataPath) "mysql") -replace "\\", "/"
@@ -17,9 +17,15 @@ port=3306
 default-storage-engine=InnoDB
 "@ | Out-File -FilePath $MySqlIniFile -Encoding 'ASCII' -Force
 
-	Move-Item "$MySqlHome/data" "$MySqlData"
+	if (!(Test-Path "$MySqlHome/data")) {
+		Move-Item "$MySqlHome/data" "$MySqlData"
+	}
 	mysqld --install MySQL --defaults-file=$MySqlIniFile
 	net start MySQL
+	
+	#Secure MySQL installation
+	$MySqlRootPassword = Read-EncryptedProperty "configuration.enc.properties", "mysql.root.password", $EncryptionKey
+	mysql -u root -e "UPDATE mysql.user SET Password = PASSWORD('$MySqlRootPassword') WHERE User = 'root';"
 }
 
 function Install-Stash {
@@ -29,6 +35,7 @@ function Install-Stash {
 	[System.Environment]::SetEnvironmentVariable("STASH_HOME", $StashHomePath, "User")
 }
 
+$EncryptionKey = Read-Host "Please enter your encryption key" -AsSecureString
 
 Initialize-ProvisioningPath
 Install-Scoop
@@ -42,4 +49,4 @@ scoop install wget
 scoop install perl
 scoop install java7
 
-Install-Mysql
+Install-Mysql $EncryptionKey

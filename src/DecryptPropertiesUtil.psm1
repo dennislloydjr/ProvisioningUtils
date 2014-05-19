@@ -3,9 +3,8 @@ function Decrypt-SecureString($SecureString) {
 	[System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BStr)
 }
 
-function Read-EncryptedProperty([String] $InputFileName, [String] $PropertyKey) {
+function Read-EncryptedProperty([String] $InputFileName, [String] $PropertyKey, [SecureString] $EncryptionKey) {
 	$Properties = Get-Content $InputFileName | ConvertFrom-StringData
-	$EncryptionKey = Read-Host "Please enter your encryption key" -AsSecureString
 	$EncryptedPassword = $Properties.$PropertyKey
 	$PasswordSecureString = ConvertTo-SecureString -String $EncryptedPassword -SecureKey $EncryptionKey
 	Decrypt-SecureString $PasswordSecureString
