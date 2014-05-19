@@ -11,7 +11,7 @@ Write-Host (Generate-Password -Length 16)
 $EncryptionKey = Read-Host "Please enter your encryption key" -AsSecureString
 
 $Properties = Get-Content $InputFileName | ConvertFrom-StringData
-if (!(Test-Path $OutputFileName)) {
+if (Test-Path $OutputFileName) {
 	Remove-Item $OutputFileName -Force
 }
 
