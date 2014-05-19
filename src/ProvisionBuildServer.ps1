@@ -25,7 +25,7 @@ default-storage-engine=InnoDB
 	
 	#Secure MySQL installation
 	$MySqlRootPassword = Read-EncryptedProperty "configuration.enc.properties" "mysql.root.password" $EncryptionKey
-	mysql -u root -e "UPDATE mysql.user SET Password = PASSWORD('$MySqlRootPassword') WHERE User = 'root';"
+	mysql -u root -e "UPDATE mysql.user SET Password = PASSWORD('$MySqlRootPassword') WHERE User = 'root'; FLUSH PRIVILEGES;"
 }
 
 function Install-Stash {
