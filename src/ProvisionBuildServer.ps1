@@ -24,7 +24,7 @@ default-storage-engine=InnoDB
 	net start MySQL
 	
 	#Secure MySQL installation
-	$MySqlRootPassword = Read-EncryptedProperty "configuration.enc.properties", "mysql.root.password", $EncryptionKey
+	$MySqlRootPassword = Read-EncryptedProperty "configuration.enc.properties" "mysql.root.password" $EncryptionKey
 	mysql -u root -e "UPDATE mysql.user SET Password = PASSWORD('$MySqlRootPassword') WHERE User = 'root';"
 }
 
