@@ -42,7 +42,7 @@ function Install-Crowd([SecureString] $EncryptionKey) {
 		'crowd.home' = $CrowdHomePath
 	}
 	$CrowdInitFile = Join-Path ($env:CROWD_INSTALL) 'crowd-webapp\WEB-INF\classes\crowd-init.properties'
-	Replace-PropertiesInFile $Properties, $CrowdInitFile
+	Replace-PropertiesInFile $Properties $CrowdInitFile
 	
 	$MySqlRootPassword = Read-EncryptedProperty "configuration.enc.properties" "mysql.root.password" $EncryptionKey
 	$MySqlDevboxPassword = Read-EncryptedProperty "configuration.enc.properties" "mysql.devbox.password" $EncryptionKey
