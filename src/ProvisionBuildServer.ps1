@@ -78,3 +78,4 @@ scoop install perl
 scoop install java7
 
 Install-Mysql $EncryptionKey
+Install-Crowd $EncryptionKey
