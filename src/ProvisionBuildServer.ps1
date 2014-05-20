@@ -19,7 +19,7 @@ transaction-isolation=READ-COMMITTED
 binlog_format=row
 "@ | Out-File -FilePath $MySqlIniFile -Encoding 'ASCII' -Force
 
-	if (!(Test-Path "$MySqlHome/data")) {
+	if (!(Test-Path "$MySqlData")) {
 		Move-Item "$MySqlHome/data" "$MySqlData"
 	}
 	mysqld --install MySQL --defaults-file=$MySqlIniFile
