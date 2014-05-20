@@ -50,7 +50,7 @@ function Install-Crowd([SecureString] $EncryptionKey) {
 	mysql -u root -p $MySqlRootPassword -e "GRANT ALL PRIVILEGES ON crowd.* TO 'crowduser'@'localhost' IDENTIFIED BY '$MySqlDevboxPassword';"
 	
 	$MySqlJdbcDriverTarget = Join-Pat ($env:CROWD_INSTALL) 'apache-tomcat\lib'
-	wget -Uri 'http://repo1.maven.org/maven2/mysql/mysql-connector-java/5.1.6/mysql-connector-java-5.1.6.jar' -OutFile $MySqlJdbcDriverTarget
+	wget 'http://repo1.maven.org/maven2/mysql/mysql-connector-java/5.1.6/mysql-connector-java-5.1.6.jar' -O"$MySqlJdbcDriverTarget"
 	
 	$CrowdServiceInstaller = Join-Path ($env:CROWD_INSTALL) 'apache-tomcat\bin'
 	Invoke-Expression ("$CrowdServiceInstaller install Crowd")
