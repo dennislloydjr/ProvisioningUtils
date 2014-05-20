@@ -133,6 +133,21 @@ function Install-Java7 {
 	scoop install java7
 }
 
+function Replace-PropertiesInFile($Properties, [String] $FilePath) {
+	(Get-Content -Path $FilePath) |
+	ForEach-Object {
+		if ($_ -match '^\s*(.*?)\s*=' -and $Properties.ContainsKey($matches[1]))
+		{
+			"$($matches[1])=$($Properties[$matches[1]])"
+		}
+		else
+		{
+			$_
+		}
+	} |
+	Out-File $FilePath -Encoding 'ascii'
+}
+
 Export-ModuleMember 'Get-ProgramsPath'
 Export-ModuleMember 'Get-DataPath'
 Export-ModuleMember 'Get-CodePath'
